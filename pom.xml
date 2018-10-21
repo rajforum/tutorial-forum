@@ -16,7 +16,11 @@
     </dependency>
     
     
+<<<<<<< HEAD
     <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java  raj-->
+=======
+    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java   test -->
+>>>>>>> e216ad93f6cc3fd3e8c4d9abe9362f7e9d0a38c2
 	<dependency>
 	    <groupId>mysql</groupId>
 	    <artifactId>mysql-connector-java</artifactId>
