@@ -32,7 +32,7 @@ public class SetUserCredential {
             session.beginTransaction();
 
             UserCredential user = new UserCredential();
-            user.setContact_No(mobileno);
+            user.setContact_no(mobileno);
             user.setEmail(email);
             user.setPassword(password);
             user.setRole(rObj);

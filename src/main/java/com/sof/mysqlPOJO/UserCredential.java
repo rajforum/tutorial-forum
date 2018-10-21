@@ -34,20 +34,20 @@ public class UserCredential implements Serializable {
 
 	
 	public UserCredential() {}
-	public Integer getUserID() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserID(Integer userID) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
 
-	public String getContact_No() {
+	public String getContact_no() {
 		return contact_no;
 	}
 
-	public void setContact_No(String contact_No) {
+	public void setContact_no(String contact_no) {
 		this.contact_no = contact_no;
 	}
 

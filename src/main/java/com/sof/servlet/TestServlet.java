@@ -36,7 +36,7 @@ public class TestServlet extends HttpServlet {
 
     // to input data in userCredential
         UserCredential user = new UserCredential();
-        user.setContact_No("1234543212");
+        user.setContact_no("1234543212");
         user.setEmail("Rajku789@gmail.com");
         user.setPassword("Raja789@12");
         user.setRole(UserCredential.Role.user);

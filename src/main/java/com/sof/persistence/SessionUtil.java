@@ -22,7 +22,7 @@ public class SessionUtil {
     }
 
     public static Session getSession(){
-        Session session =  getInstance().sessionFactory.openSession();
+        Session session =  instance.sessionFactory.openSession();
 
         return session;
     }

@@ -23,7 +23,7 @@ public class UserCredentialDAO {
 
         credential.setEmail(bean.getEmail());
         credential.setPassword(bean.getPassword());
-        credential.setContact_No(bean.getContact_No());
+        credential.setContact_no(bean.getContact_no());
         credential.setRole(bean.getRole());
         
         session.save(credential);
@@ -45,7 +45,7 @@ public class UserCredentialDAO {
         Query query = session.createQuery(hql);
         query.setParameter("id",id);
         query.setParameter("email",credential.getEmail());
-        query.setParameter("contact_No",credential.getContact_No());
+        query.setParameter("contact_No",credential.getContact_no());
         query.setParameter("password",credential.getPassword());
         query.setParameter("role",credential.getRole());
 

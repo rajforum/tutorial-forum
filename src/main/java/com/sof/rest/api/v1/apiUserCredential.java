@@ -25,7 +25,7 @@ public class apiUserCredential {
 
     @POST
     @Path("/create")
-    @Consumes({ MediaType.APPLICATION_FORM_URLENCODED })
+    @Consumes({ MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_JSON })
     public Response addUserCredential(UserCredential credential){
 
