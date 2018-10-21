@@ -11,6 +11,13 @@ import java.util.List;
 @Path("/answer")
 public class apiAnswer {
 
+	
+	@GET
+    @Path("/dummy")
+    @Produces({ MediaType.TEXT_PLAIN })
+    public Response getDummy() {
+		return Response.ok("Dummy Api called").build();
+    }
 
     @GET
     @Path("/list")

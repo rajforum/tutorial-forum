@@ -1,9 +1,9 @@
 package com.sof.dao;
 
 
-import java.util.Date;
 import java.util.List;
 
+import com.sof.mysqlPOJO.UserCredential;
 import com.sof.mysqlPOJO.UserProfile;
 import com.sof.persistence.SessionUtil;
 import org.hibernate.query.Query;
@@ -14,39 +14,42 @@ public class UserProfileDAO {
 
 
 
-    public void addUserProfile(UserProfile bean){
+    public static Integer addUserProfile(UserProfile userProfile){
         Session session = SessionUtil.getSession();
         Transaction tx = session.beginTransaction();
-
-        addUserProfile(session,bean);
-
+        
+        session.save(userProfile);
         tx.commit();
         session.close();
-
-    }
-
-    private void addUserProfile(Session session, UserProfile bean){
-        UserProfile profile = new UserProfile();
-
-        profile.setName(bean.getName());
-        profile.setImage(bean.getImage());
-        profile.setDob(bean.getDob());
-        profile.setSex(bean.getSex());
-        profile.setCountry(bean.getCountry());
         
-
-        session.save(profile);
-
+        session = SessionUtil.getSession();
+        tx = session.beginTransaction();
+        
+        String hql = "from UserProfile where userId=:userid";
+        Query query = session.createQuery(hql); 
+        query.setParameter("userid", userProfile.getUserId());
+        List<UserProfile> list = query.list();
+        
+        tx.commit();
+        session.close();
+        
+        System.out.println("DBGDBG#####" + list.get(0).getStackId());
+        
+        if ( list.size() == 1) {
+        	return list.get(0).getStackId();
+        }
+        
+        return -1;
     }
 
 
-    public int updateUserProfile(int id, UserProfile profile){
+    public static int updateUserProfile(int id, UserProfile profile){
         if(id <=0)
             return 0;
         Session session = SessionUtil.getSession();
         Transaction tx = session.beginTransaction();
 
-        String hql = "update userProfile set name =:name, image=: image, country=: country, sex=: sex, dob=: dob, creationTime=: creationTime where stackId = :id";
+        String hql = "update userProfile set name =:name, image=:image, country=:country, sex=:sex, dob=:dob, creationTime=:creationTime where stackId = :id";
         Query query = session.createQuery(hql);
         query.setParameter("id",id);
         query.setParameter("name",profile.getName());
@@ -63,7 +66,7 @@ public class UserProfileDAO {
     }
 
 
-    public int deleteUserProfile(int id) {
+    public static int deleteUserProfile(int id) {
         Session session = SessionUtil.getSession();
         Transaction tx = session.beginTransaction();
 
@@ -82,9 +85,22 @@ public class UserProfileDAO {
     }
 
 
-    public List<UserProfile> getUserProfileList(){
+    public static List<UserProfile> getUserProfileListByUserId(Integer userId){
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("from UserProfile");
+        Query query = session.createQuery("from UserProfile where userId=:userid");
+        query.setParameter("userid", userId);
+        List<UserProfile> userProfiles =  query.list();
+        session.close();
+
+        return userProfiles;
+
+    }
+    
+    
+    public static List<UserProfile> getUserProfileListByStackId(Integer stackId){
+        Session session = SessionUtil.getSession();
+        Query query = session.createQuery("from UserProfile where stackId=:stackid");
+        query.setParameter("stackid", stackId);
         List<UserProfile> userProfiles =  query.list();
         session.close();
 

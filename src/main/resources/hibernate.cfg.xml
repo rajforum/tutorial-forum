@@ -18,7 +18,7 @@
         <mapping class="com.sof.mysqlPOJO.QueryTag"></mapping>
 		<mapping class="com.sof.mysqlPOJO.Question"></mapping>
 		<mapping class="com.sof.mysqlPOJO.Answer"></mapping>
-
+		<mapping class="com.sof.mysqlPOJO.UserAccessMapping"></mapping>
         
     </session-factory>
 </hibernate-configuration>

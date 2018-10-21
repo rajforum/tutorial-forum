@@ -23,6 +23,8 @@ public class UserProfile implements Serializable {
 	private byte [] image;
 	@Column
 	private String country;
+	@Column
+	private Integer userId;
 
 	public enum Sex {male, female};
 	@Enumerated(EnumType.STRING)
@@ -32,9 +34,14 @@ public class UserProfile implements Serializable {
 	private Date dob;
 	
 
-	public UserProfile() {}
+	public Integer getUserId() {
+		return userId;
+	}
 
 
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
 
 	public Integer getStackId () {

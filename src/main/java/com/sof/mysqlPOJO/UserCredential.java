@@ -48,7 +48,7 @@ public class UserCredential implements Serializable {
 	}
 
 	public void setContact_No(String contact_No) {
-		this.contact_no = contact_no;
+		this.contact_no = contact_No;
 	}
 
 
