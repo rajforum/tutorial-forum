@@ -1,5 +1,6 @@
 package com.sof.dao;
 
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -25,10 +26,11 @@ public class UserAccessMappingDAO {
 	    cal.add(Calendar.DAY_OF_MONTH, 7);  
 	    Date d = cal.getTime();
 		
-		userAccess.setAuthToken_creation(d.toString());
+		userAccess.setAuthToken_creation((new Timestamp(d.getTime())).toString());
 		
 		session.save(userAccess);
 		tx.commit();
+		session.close();
 	}
 	
 	public void remvoeTicketOnLogoutOrExpire() {
@@ -51,8 +53,10 @@ public class UserAccessMappingDAO {
         
         if(list.size()==1) {
         	String stackid = ""+list.get(0).getProfile_stackId();
-        	String creationTime = list.get(0).getAuthToken_creation();
-        	Date aTokenDate = new Date(creationTime);
+        	//String creationTime = list.get(0).getAuthToken_creation();
+        	//Timestamp t = new Timestamp(Long.parseLong(creationTime));
+        	
+        	//Date aTokenDate = t.getd;
         	if(stackid.equals(sofuid) /*&& aTokenDate.after(new Date())*/) {
         		return true;
         	}

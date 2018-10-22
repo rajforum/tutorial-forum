@@ -52,8 +52,8 @@ public class UserAccessMapping {
 		return authToken_creation;
 	}
 
-	public void setAuthToken_creation(String authToken_creation) {
-		this.authToken_creation = authToken_creation;
+	public void setAuthToken_creation(String time) {
+		this.authToken_creation = time;
 	}
 
 }
