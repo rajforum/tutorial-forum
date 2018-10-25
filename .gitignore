@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /.classpath
 !/.gitignore
 /.idea/
@@ -5,3 +6,10 @@
 /.settings/
 /target/
 /tutorial-forum-sof.iml
+=======
+/target/
+.classpath
+.project
+.settings/
+/logs/
+>>>>>>> c305cc51b7bde24cc7060debb2b86b3cb2e8cf77

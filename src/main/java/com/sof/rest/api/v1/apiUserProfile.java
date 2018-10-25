@@ -17,7 +17,7 @@ public class apiUserProfile {
     @Produces({ MediaType.APPLICATION_JSON })
     public List<UserProfile> getUserProfiles() {
         UserProfileDAO dao = new UserProfileDAO();
-        List profiles = dao.getUserProfileList();
+        List profiles = dao.getUserProfileListByUserId(-1);
         return profiles;
     }
 
@@ -26,10 +26,9 @@ public class apiUserProfile {
     @Path("/create")
     @Consumes({ MediaType.APPLICATION_FORM_URLENCODED })
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response addUserProfile(UserProfile profile){
-
-        UserProfileDAO dao = new UserProfileDAO();
-        dao.addUserProfile(profile);
+    public Response addUserProfile(){
+    	
+    	
 
         return Response.ok().build();
     }
