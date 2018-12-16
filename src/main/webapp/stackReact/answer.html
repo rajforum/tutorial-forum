@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="primary.css">
+    <link rel="stylesheet" href="secondary.css">
+
+    <link rel="import" href="/header1.html">
+    <title>Post Answer - Technical Forum</title>
+
+</head>
+
+<body>
+    <div w3-include-html="/header1.html"></div>
+
+    <div class="content">
+        <h2>Your Answer</h2>
+
+        <form id="your_answer" class="inputfield" method="post" action="" role="textbox" autocomplete="off">
+
+            <div id="abody" class="if_body">
+                <label for="body">Body</label><br>
+                <textarea id="ansBody" class="usr_code" name="bodyText" rows="15" cols="92"></textarea>
+            </div>
+
+            <div id="false_magin"></div>
+
+            <input id="queryId" type="hidden" name="queryId">
+            <input id="userId" type="hidden" name="userId">
+            <input id="vote" type="hidden" name="vote">
+            <input id="approved" type="hidden" name="approved">
+
+            <button id="submitAns" type="submit">Post Your Answer</button>
+
+        </form>
+    </div>
+</body>
+<script>includeHTML();</script>
+
+</html>

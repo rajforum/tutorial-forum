@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="primary.css">
+    <link rel="stylesheet" href="secondary.css">
+    <title>Ask Question - Technical Forum</title>
+</head>
+
+<body>
+    <div class="content">
+        <h2>Ask a question</h2>
+
+        <form id="askQuestion" class="inputfield" method="post" action="TODO" role="textbox" autocomplete="off">
+            <div id="qtitle">
+                <label for="title">Title</label><br>
+                <input type="text" name="title" maxlength="300" required placeholder="What's your programming question? Be specific."><br>
+            </div>
+
+            <div id="qbody" class="if_body">
+                <label for="body">Body</label><br>
+                <textarea id="qusBody" class="usr_code" name="bodyText" rows="15" cols="92"></textarea>
+            </div>
+
+            <div id="false_magin"></div>
+
+            <div>
+                <label for="tags">Tags</label><br>
+                <input id="tagnames" type="text" name="tagnames" size="60" required placeholder="e.g. (string mysql wordpress)"><br>
+            </div>
+
+            <div id="false_magin"></div>
+
+            <input type="hidden" name="authorId"><br>
+            <script> document.getElementById('editedTime').value = Date.now();</script>
+            <input id="editedTime" type="hidden" name="editedTime">
+            <button id="submitAns" type="submit">Post Your question</button>
+
+        </form>
+    </div>
+</body>
+
+</html>

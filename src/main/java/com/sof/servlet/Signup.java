@@ -14,39 +14,49 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.sof.dao.UserAccessMappingDAO;
 import com.sof.dao.UserCredentialDAO;
 import com.sof.dao.UserProfileDAO;
+import com.sof.mysqlPOJO.UserAccessMapping;
 import com.sof.mysqlPOJO.UserCredential;
 import com.sof.mysqlPOJO.UserProfile;
 import com.sof.mysqlPOJO.UserCredential.Role;
+
+import com.sof.authentication.*;
 
 public class Signup extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		String mobileNo = req.getParameter("mobile_no");
 		String name = req.getParameter("name");
 		String country = req.getParameter("country");
+		String role = req.getParameter("role");
 		
+				
 		UserCredential credential = new UserCredential();
     	credential.setEmail(email);
     	credential.setPassword(password);
+//    	credential.setPassword(password + SHA256Encryption.getSalt());
     	credential.setContact_no(mobileNo);
-    	credential.setRole(Role.user);
-    	System.out.println("DBG1#########UserCredential:" + credential.toString() + " Contact NO:" + credential.getContact_no());
+    	credential.setRole(Role.valueOf(role));
+    	System.out.println("Signup DBG1#########UserCredential:" + credential.toString() + " Contact NO:" + credential.getContact_no());
         
-    	Integer userId = -1, stackId = -1; 
-        if ( (userId = UserCredentialDAO.addUserCredential(credential)) != -1 ) {
+    	Integer userId = -1, stackId = -1;
+    	userId = UserCredentialDAO.addUserCredential(credential);
+        if ( (userId) != -1 ) {
         	UserProfile uProfile = new UserProfile();
         	uProfile.setName(name);
         	uProfile.setCountry(country);
         	uProfile.setUserId(userId);
         	stackId = UserProfileDAO.addUserProfile(uProfile);
         	if (stackId != -1) {
+        		
         		resp.setStatus(200, "status:user created");
-        		return;
+        		return ;
             }
         } else {
         	//Error message
@@ -58,8 +68,8 @@ public class Signup extends HttpServlet {
 //        json.addProperty("status", "user created");
         resp.setStatus(500, "status:User not created");
 	}
-
-	/**
+/*
+	*//**
      * Sign up new user.
      * @param email
      * @param password
@@ -67,7 +77,7 @@ public class Signup extends HttpServlet {
      * @param name
      * @param country
      * @return
-     */
+     *//*
     @POST
     @Path("/create")
     @Consumes({ MediaType.APPLICATION_FORM_URLENCODED })
@@ -97,6 +107,7 @@ public class Signup extends HttpServlet {
             }
         } else {
         	//Error message
+        	System.out.println("Error in user creation");
         }
         
         
@@ -105,5 +116,5 @@ public class Signup extends HttpServlet {
 //        json.addProperty("status", "user created");
         
         return Response.status(400).build();
-    }
+    }*/
 }

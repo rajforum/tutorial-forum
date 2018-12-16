@@ -12,21 +12,19 @@ public class AnswerDAO {
     public void addAnswer(Answer bean){
         Session session = SessionUtil.getSession();
         Transaction tx = session.beginTransaction();
-        addAnswer(session,bean);
-        tx.commit();
-        session.close();
-    }
-
-    private void addAnswer(Session session, Answer bean){
+        
         Answer ans = new Answer();
-
         ans.setUserId(bean.getUserId());
         ans.setQueryId(bean.getQueryId());
         ans.setBodyText(bean.getBodyText());
         ans.setVote(bean.getVote());
         
         session.save(ans);
+        tx.commit();
+        
+        session.close();
     }
+
 
     public int updateAnswer(int id, Answer answer){
         if(id <= 0) return 0;
@@ -86,11 +84,6 @@ public class AnswerDAO {
         return answers;
 
     }
-  /*  public static void main(String[] arg) {
-    	AnswerDAO test = new AnswerDAO();
-    	test.getAnswerList();
-    	
-    	System.out.println(test.toString());
-    }*/
+ 
 }
 

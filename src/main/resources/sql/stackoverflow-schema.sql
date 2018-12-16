@@ -14,7 +14,7 @@ CREATE TABLE userCredential(
     `userId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `contact_no` VARCHAR(13) NOT NULL UNIQUE,
     `email` VARCHAR(60) NOT NULL UNIQUE,
-    `password` VARCHAR(20) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
     `role` ENUM('admin', 'user'), 
     
     PRIMARY KEY(`userID`)
@@ -39,7 +39,7 @@ CREATE TABLE userProfile(
     `userId` INT UNSIGNED NOT NULL,
 
     PRIMARY KEY(`stackID`),
-    CONSTRAINT `fk_up_userid` FOREIGN KEY (`userId`) REFERENCES `UserCredential` (`userId`) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT `fk_up_userid` FOREIGN KEY (`userId`) REFERENCES `userCredential` (`userId`) ON UPDATE CASCADE ON DELETE CASCADE
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -111,7 +111,7 @@ CREATE TABLE `question` (
   `vote` INT NOT NULL DEFAULT 0,
 
   PRIMARY KEY (`Id`),
-  CONSTRAINT `fk_q_author` FOREIGN KEY (`authorId`) REFERENCES `userProfile` (`stackId`) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT `fk_q_author` FOREIGN KEY (`authorId`) REFERENCES `userProfile` (`stackId`) ON DELETE CASCADE ON UPDATE CASCADE
   
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -146,11 +146,12 @@ CREATE TABLE `answer`(
     `queryId` INT  UNSIGNED NOT NULL,
     `userId` INT  UNSIGNED NOT NULL,
     `bodyText` MEDIUMTEXT NOT NULL,
+    `approved` INT NOT NULL,
     `vote` INT NOT NULL DEFAULT 0,
     
     PRIMARY KEY(`answerId`),
     CONSTRAINT `fk_qr_queryid` FOREIGN KEY (`queryId`) REFERENCES `question` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT `fk_qr_userid` FOREIGN KEY (`userId`) REFERENCES `userProfile` (`stackId`) ON DELETE RESTRICT
+    CONSTRAINT `fk_qr_userid` FOREIGN KEY (`userId`) REFERENCES `userProfile` (`stackId`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

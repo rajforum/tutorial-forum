@@ -6,12 +6,22 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 public class SHA256Encryption {
-	
-	//inputString: username-mobile-currtimemillis
-	public static String createAuthToken(String inputString) throws NoSuchAlgorithmException {
-		MessageDigest digest = MessageDigest.getInstance("SHA-256");
-		byte [] hashData = digest.digest(inputString.getBytes(StandardCharsets.UTF_8));
-		return Base64.getEncoder().encodeToString(hashData);
+	private static final String salt = "hiSalt";
+		
+	public static String getSalt() {
+		return salt;
 	}
 
+
+	//inputString: username-mobile-currtimemillis for authtoken
+	public static String generateHash(String input) {
+		try {
+			MessageDigest sha = MessageDigest.getInstance("SHA-256");
+			byte[] hashedBytes = sha.digest(input.getBytes(StandardCharsets.UTF_8));
+			return Base64.getEncoder().encodeToString(hashedBytes);
+		}catch(NoSuchAlgorithmException ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
 }

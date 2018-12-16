@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <link rel="shortcut icon" href="/images/logo.png"> -->
+
+    <meta name="description" content="Technical Forum is the largest, most trusted online community for developers to learn, share ​their programming ​knowledge, and build their careers." />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="HandheldFriendly" content="true">
+
+    <link rel="stylesheet" href="primary.css">
+    <link rel="stylesheet" href="secondary.css">
+    <link rel="stylesheet" href="technical.css">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <title>Header - Technical Forum</title>
+</head>
+
+<body>
+    <header>
+        <table class="top_bar">
+            <tr class="container">
+                <td id="logo">
+                    <img src="/images/name.png" alt="Technical-Forum">
+                </td>
+                <td class="search_tab">
+                    <form id="search" action="/search" method="get" class="searchbar" autocomplete="off" role="search">
+                        <input name="q" type="text" placeholder="Search…" value="" autocomplete="off" maxlength="240">
+                        <button type="submit" aria-label="Search...">
+                            <i class='material-icons'> search</i>
+                        </button>
+                    </form>
+                </td>
+                <td id="hidden_box"></td>
+                <td id="switch_btn">
+                    <span class="btn_main">Login</span>
+                    <span class="btn_main">Sign up</span>
+                    <span id="userImg"><img src="/images/userImage.png"></span>
+                </td>
+
+            </tr>
+        </table>
+    </header>
+
+</body>
+
+</html>

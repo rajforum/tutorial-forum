@@ -49,12 +49,14 @@ public class UserProfileDAO {
         Session session = SessionUtil.getSession();
         Transaction tx = session.beginTransaction();
 
-        String hql = "update userProfile set name =:name, image=:image, country=:country, sex=:sex, dob=:dob, creationTime=:creationTime where stackId = :id";
+        String hql = "update userProfile set name =:name, image=:image, country=:country, sex=:sex, dob=:dob where stackId = :id";
         Query query = session.createQuery(hql);
         query.setParameter("id",id);
         query.setParameter("name",profile.getName());
         query.setParameter("image",profile.getImage());
-
+        query.setParameter("country",profile.getCountry());
+        query.setParameter("dob",profile.getDob());
+       
         int rowCount = query.executeUpdate();
         System.out.println("Rows affected: " + rowCount);
 

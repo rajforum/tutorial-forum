@@ -20,23 +20,27 @@ public class UserCredentialDAO {
 
 
     public static Integer addUserCredential(UserCredential bean){
+        
+        Session session1 = SessionUtil.getSession();
+        Transaction tx1 = session1.beginTransaction();
+        
         UserCredential credential = new UserCredential();
-
+       
         credential.setEmail(bean.getEmail());
         credential.setPassword(bean.getPassword());
         credential.setContact_no(bean.getContact_no());
         credential.setRole(bean.getRole());
-
         
-        Session session1 = SessionUtil.getSession();
-        Transaction tx1 = session1.beginTransaction();
+        session1.save(credential);
+        tx1.commit();
+        
         String hql = "from UserCredential where contact_no=:cno";
         Query query = session1.createQuery(hql); 
         query.setParameter("cno", credential.getContact_no());
         List<UserCredential> list = query.list();
-        tx1.commit();
+       
         session1.close();
-        
+        System.out.println("add user"+list.size());
         if ( list.size() == 1 ) {
         	System.out.println("User created" + credential );
         	UserCredential uc = list.get(0);
@@ -59,7 +63,6 @@ public class UserCredentialDAO {
                 "contact_no=: contact_no," +
                 "email=: email," +
                 "password=: password," +
-                "role=: role"+
                 "where userId=: id";
 
         Query query = session.createQuery(hql);
@@ -67,7 +70,7 @@ public class UserCredentialDAO {
         query.setParameter("email",credential.getEmail());
         query.setParameter("contact_No",credential.getContact_no());
         query.setParameter("password",credential.getPassword());
-        query.setParameter("role",credential.getRole());
+       
 
         int rowCount = query.executeUpdate();
         System.out.println("Rows affected: "+rowCount);
@@ -107,11 +110,12 @@ public class UserCredentialDAO {
 
     }
     
-    public static List<UserCredential> getUserCredential(String email, String contactNo, String password){
+    public static List<UserCredential> getUserCredential(String email, String password){
         Session session = SessionUtil.getSession();
         Criteria cr = session.createCriteria(UserCredential.class); 
         cr.add(Restrictions.eq("email", email));
         cr.add(Restrictions.eq("password", password));
+        System.out.println("getUserCredential");
         //cr.add(Restrictions.eq("contact_no", contactNo));
         
         List<UserCredential> userCredentials =  cr.list();

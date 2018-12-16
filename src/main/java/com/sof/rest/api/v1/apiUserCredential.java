@@ -24,12 +24,13 @@ import org.apache.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.sof.authentication.SHA256Encryption;
-
+import com.sof.dao.UserAccessMappingDAO;
 import com.sof.dao.UserCredentialDAO;
 import com.sof.dao.UserProfileDAO;
 import com.sof.mysqlPOJO.UserCredential;
 import com.sof.mysqlPOJO.UserCredential.Role;
 import com.sof.mysqlPOJO.UserProfile;
+
 
 @Path("credential")
 public class apiUserCredential {
@@ -38,7 +39,7 @@ public class apiUserCredential {
 	
     @GET
     @Path("/list")
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    @Produces({ MediaType.APPLICATION_JSON })
     public List<UserCredential> getUserCredentialsDetail() {
         UserCredentialDAO dao = new UserCredentialDAO();
         List credentials = dao.getUserCredentialList();
@@ -88,4 +89,102 @@ public class apiUserCredential {
         }
         return Response.ok().build();
     }
+    
+    /**
+     * Sign up new user.
+     * @param email
+     * @param password
+     * @param mobileNo
+     * @param name
+     * @param country
+     * @return
+     */
+    @POST
+    @Path("/create")
+    @Consumes({ MediaType.APPLICATION_FORM_URLENCODED })
+    @Produces({ MediaType.TEXT_HTML })
+    public Response addUserCredential(@FormParam("email") String email, 
+    		@FormParam("password") String password, 
+    		@FormParam("mobile_no") String mobileNo,
+    		@FormParam("name") String name,
+    		@FormParam("country") String country){
+    	
+    	
+    	//password = SHA256Encryption.generateHash(password+""+SHA256Encryption.getSalt());
+    	
+    	UserCredential credential = new UserCredential();
+    	credential.setEmail(email);
+    	credential.setPassword(password);
+    	credential.setContact_no(mobileNo);
+    	credential.setRole(Role.user);
+    	System.out.println("credential DBG1#########UserCredential:" + credential.toString() + " Contact NO:" + credential.getContact_no());
+        
+    	Integer userId = -1, stackId = -1; 
+        if ( (userId = UserCredentialDAO.addUserCredential(credential)) != -1 ) {
+        	UserProfile uProfile = new UserProfile();
+        	uProfile.setName(name);
+        	uProfile.setCountry(country);
+        	uProfile.setUserId(userId);
+        	stackId = UserProfileDAO.addUserProfile(uProfile);
+        	if (stackId != -1) {
+        		return Response.ok("status:user created").build();
+            }
+        } else {
+        	//Error message
+        	System.out.println("Error in user creation");
+        }
+        
+        
+        
+//        JsonObject json = new JsonObject();
+//        json.addProperty("status", "user created");
+        
+        return Response.status(400).build();
+    }
+
+    
+
+	@POST
+    @Path("/signin")
+	@Consumes({ MediaType.APPLICATION_FORM_URLENCODED })
+    @Produces({ MediaType.APPLICATION_JSON})
+    public Response checkUser(@FormParam("email") String email,
+    		@FormParam("mobile_no") String mobileNo,
+    		@FormParam("password") String password, 
+    		@Context HttpServletResponse response) {
+		
+
+		//password = SHA256Encryption.generateHash(password+""+SHA256Encryption.getSalt());
+		
+		
+		UserCredentialDAO dao = new UserCredentialDAO();
+		
+		System.out.println(email+" : "+password);
+		List<UserCredential> list = dao.getUserCredential(email, password);
+        System.out.println("credential chekUser List::::" + list);
+        JsonObject json = new JsonObject();
+        if ( list.size() == 1) {
+        	String authToken;
+			
+				authToken = SHA256Encryption.generateHash(list.get(0).getEmail() + "-" + System.currentTimeMillis());
+	        	json.addProperty("status", "verified");
+	        	json.addProperty("authtoken", authToken);
+	        	response.addCookie(new Cookie("ticket",authToken));
+	        	
+	        	List<UserProfile> userProfileList = UserProfileDAO.getUserProfileListByUserId(list.get(0).getUserId());
+	        	Integer stackId = -1;
+	        	if ( list.size() == 1 ) {
+	        		stackId = userProfileList.get(0).getStackId();
+	        		response.addCookie(new Cookie("sofuid",""+stackId));
+	        	}
+	        	
+	        	UserAccessMappingDAO.createTicketOnLogin(stackId, authToken, new Date());
+			
+        } else {
+        	return Response.status(HttpServletResponse.SC_UNAUTHORIZED).build();
+        }
+        return Response.ok(json.toString()).build();
+    }
+
+
 }
