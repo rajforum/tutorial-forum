@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_package="com.sof.protobuffer";
+option java_outer_classname = "UserProtos";
+
+
+message User {
+	int32 userid = 1;
+  string uname = 2;
+  string password = 3;
+  int32 age = 4;
+  enum Sex {
+    FEMALE = 0;
+    MALE = 1;
+  }
+  Sex sex = 5;
+}
