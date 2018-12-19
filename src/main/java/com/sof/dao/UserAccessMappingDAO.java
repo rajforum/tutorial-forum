@@ -45,7 +45,7 @@ public class UserAccessMappingDAO {
 		Session session = SessionUtil.getSession();
 		Transaction tx = session.beginTransaction();
 		
-		//String sql ="from UserAccesMapping where authToken=:authticket";
+		
 		String sql = "from UserAccessMapping where authToken =: autht";
 		Query query = session.createQuery(sql); 
         query.setParameter("autht", authTicket);

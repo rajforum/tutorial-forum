@@ -36,11 +36,12 @@ public class AuthenticationFilter implements Filter {
 			return;
 		}
 		
-		System.out.println("DSFDSDFDFD4444444########" + str);
+		System.out.println("else doFilter:  " + str);
 		
 		Cookie[] cookies = req.getCookies();
 		String authtoken="-1", sofuid="-1";
 		if(cookies != null){
+			System.out.println("cookies is present in browser");
 			for(Cookie cookie : cookies){
 				if ( "ticket".equals(cookie.getName() ) ) {
 					authtoken = cookie.getValue();
@@ -48,7 +49,11 @@ public class AuthenticationFilter implements Filter {
 				if ( "sofuid".equals(cookie.getName() ) ) {
 					sofuid = cookie.getValue();
 				}
+				System.out.println("cookies verified");
 			}
+			System.out.println("end of for loop");
+		}else {
+			System.out.println("NO cookies ");
 		}
 		 
 		
@@ -56,11 +61,15 @@ public class AuthenticationFilter implements Filter {
 		
 		if (authenticated == true) {
 			// pass the request along the filter chain
+			System.out.println("authenticated...");
 			chain.doFilter(request, response);
+			
+			System.out.println("do chain over...");
 		} else {
 			HttpServletResponse resp = (HttpServletResponse) response;
 		    //resp.reset();
 		    resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		    System.out.println("NOT authenticated...");
 		}
 	}
 

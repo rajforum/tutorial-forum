@@ -29,7 +29,7 @@
     <servlet-name>signup</servlet-name>
     <url-pattern>/signup</url-pattern>
   </servlet-mapping>
-  
+<!--   
   <filter>
   	<filter-name>sof-iam</filter-name>
   	<filter-class>com.sof.filter.AuthenticationFilter</filter-class>
@@ -38,7 +38,7 @@
  	<filter-name>sof-iam</filter-name>
   	<url-pattern>/api/v1/*</url-pattern>
   </filter-mapping>
-  
+   -->
   <servlet>
     <servlet-name>Jersey REST Service</servlet-name>
     <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>

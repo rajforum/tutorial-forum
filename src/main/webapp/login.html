@@ -1,13 +1,39 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-<title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="primary.css">
+    <link rel="stylesheet" href="secondary.css">
+    <title>Login - Technical Forum</title>
 </head>
+
 <body>
-<h1>Login</h1>
-<form action="http://localhost:8080/tutorial-forum-sof/login" method="post">
-Username:<input name="username" type="email"><br>
-Password:<input name="password" type="password"><br>
-<input value="login" type="submit"><br>
-</form>
+    <div class="content">
+        <div id="login_page">
+            <form action="http://localhost:8080/tutorial-forum-sof/api/v1/credential/signin" method="post">
+                <div id="form_data">
+
+                    <label for="email">Email</label><br>
+                    <input type="email" name="email" maxlength="60" required placeholder="you@example.org" autocomplete="off" /><br>
+                    <label for="password">Password</label><br>
+                    <input type="password" name="password" maxlength="30" minlength="3" required placeholder="*******" /><br>
+                    <a href="TODO" id="forgot_pwd">forgot?</a>
+                    <div id="form_btn">
+                        <input type="submit" value="Login" />
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="switch">
+            <span>Don't have an account?</span>
+            <a href="signup.html" title="sign up">Sign up</a>
+        </div>
+    </div>
 </body>
+
 </html>

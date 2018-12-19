@@ -1,19 +1,50 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>tutoriale</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="primary.css">
+    <link rel="stylesheet" href="secondary.css">
+    <title>Sign up - Technical Forum</title>
 </head>
+
 <body>
-	<h1>Signup</h1>
-	<form action="http://localhost:8080/tutorial-forum-sof/signup" method="POST">
-		Name:<input type="text" name="name"><br>
-		Email:<input type="email" name=email><br>
-		Mobile No:<input type="number" name="mobile_no"><br>
-		Country:<input type="text" name="country"><br>
-		Password:<input type="password" name="password"><br>
-		<input type="submit" value="login">
-	</form>
+    <div class="content">
+        <div id="signup_page">
+            <form action="http://localhost:8080/tutorial-forum-sof/api/v1/credential/create" method="post">
+                <div id="form_data">
+                    <label for="name">Display Name</label><br>
+                    <input type="text" name="name" maxlength="30" required placeholder="R.Kishor" autocomplete="off" /><br>
+                    
+                    <label for="email">Email (required, but never shown)</label><br>
+                    <input type="email" name="email" maxlength="60" required placeholder="you@example.org" /><br>
+                    
+                    <label for="mobile_no">Contact No (required, but never shown)</label><br>
+                    <input type="number" name="mobile_no" maxlength="10" required placeholder="9999888833" /><br>
+                    
+                    <label for="country">Country</label><br>
+                    <input type="text" name="country"  required placeholder="India" /><br>
+                    
+                    <label for="password">Password</label><br>
+                    <input type="password" name="password" maxlength="30" minlength="6" required placeholder="*******" /><br>
+                    
+                    <input type="hidden" name="role" value="user"/>
+
+                    <div id="form_btn">
+                        <input type="submit" value="Sign up" />
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="switch">
+            <span>Already have an accont?</span>
+            <a href="login.html" title="login">Login</a>
+        </div>
+    </div>
 </body>
+
 </html>
